@@ -1,60 +1,65 @@
-import { API } from "../../backend";
+import {API} from "../../backend";
+
+
 
 export const signup = user => {
-    const requestOptions = {
-        method: "POST",
+    return fetch(`${API}signup`,{
+        method:"POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+            Accept:"application/json",
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify(user)
-      }
-  return fetch(`${API}/api/signup`, requestOptions)
-    .then(response => response.text())
-    .then(text=>console.log(text));
-  }
-export const signin = user => {
-  return fetch(`${API}/signin`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(user)
-  })
-    .then(response => {
-      return response.json();
+        body:JSON.stringify(user)
     })
-    .catch(err => console.log(err));
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err))
+};
+
+export const signin = user => {
+    return fetch(`${API}/signin`,{
+        method:"POST",
+        headers: {
+            Accept:"application/json",
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(user)
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err))
 };
 
 export const authenticate = (data, next) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("jwt", JSON.stringify(data));
-    next();
-  }
+    if(typeof Window !== "undefined"){
+        localStorage.setItem("jwt",JSON.stringify(data));
+        next();
+    }
+    
 };
 
 export const signout = next => {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("jwt");
-    next();
+    if(typeof Window !== "undefined"){
+        localStorage.removeItem("jwt");
+        next();
 
-    return fetch(`${API}/signout`, {
-      method: "GET"
-    })
-      .then(response => console.log("signout success"))
-      .catch(err => console.log(err));
-  }
+        return fetch(`${API}/signout`,{
+            method:"GET"
+        })
+        .then(response => console.log("Signout success"))
+        .catch(err => console.log(err))
+    }
 };
 
-export const isAutheticated = () => {
-  if (typeof window == "undefined") {
-    return false;
-  }
-  if (localStorage.getItem("jwt")) {
-    return JSON.parse(localStorage.getItem("jwt"));
-  } else {
-    return false;
-  }
+export const isAuthenticated = () => {
+    if(typeof Window == "undefined")
+        return false;
+    if(localStorage.getItem("jwt")){
+        return JSON.parse(localStorage.getItem("jwt"));
+    }
+    else{
+      return false;  
+    }
 };
