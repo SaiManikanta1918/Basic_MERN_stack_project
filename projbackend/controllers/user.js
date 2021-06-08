@@ -65,7 +65,7 @@ exports.userPurchaseList = (req,res) => {
     
 }
 
-exports.pushOrderPurchaseList = (req,res,next) => {
+exports.pushOrderInPurchaseList = (req,res,next) => {
     
     let purchases = [];
     req.body.order.products.forEach(product => {

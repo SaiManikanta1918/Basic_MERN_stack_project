@@ -10,7 +10,7 @@ exports.signup = (req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({
-            error : errors.array()[0].value
+            error : errors.array()[0].msg
         })
     }
 
@@ -28,9 +28,9 @@ exports.signup = (req,res)=>{
 exports.signin = (req,res)=>{
     const { email, password } = req.body;
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
+    if( !errors.isEmpty() ){
         return res.status(422).json({
-            error : errors.array()[0].value
+            error : errors.array()[0].msg
         })
     }
     User.findOne({ email } ,(err , user)=>{

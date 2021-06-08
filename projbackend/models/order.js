@@ -15,13 +15,15 @@ const ProductCart = mongoose.model("ProductCart",productCartSchema);
 
 const orderSchema = new mongoose.Schema({
     products : [productCartSchema],
-
     transaction_id : {},
-
     amount :{type : Number},
-
     address : String,
     updated : Date,
+    status : {
+        type : String,
+        default : "Received",
+        enum :["Cancelled", "Delivered", "Processing", "Shipped", "Received"]
+    },
     user : {
         type : ObjectId,
         ref : "User"

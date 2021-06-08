@@ -10,16 +10,16 @@ const productSchema = new mongoose.Schema(
             maxLength : 32,
             required : true
         },
-        price :{
-            type : Number,
-            trim : true,
-            maxLength : 32,
-            required : true
-        },
         description :{
             type : String,
             trim : true,
             maxLength : 2000,
+            required : true
+        },
+        price :{
+            type : Number,
+            trim : true,
+            maxLength : 32,
             required : true
         },
         category :{
